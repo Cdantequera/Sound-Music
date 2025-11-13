@@ -50,7 +50,6 @@ function TrackCardSmalll({ track }) {
           }}
         />
 
-        
         {isCurrentlyPlaying && (
           <span className="absolute top-2 right-2 flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -80,15 +79,13 @@ function TrackCardSmalll({ track }) {
         <div className="flex justify-between items-center gap-2">
           <p className="text-sm text-gray-400 truncate leading-tight">{track.artists[0].name}</p>
 
-          
           <button
-            onClick={handleToggleFavorite} 
+            onClick={handleToggleFavorite}
             className={`text-gray-400 hover:text-pink-500 transition-colors shrink-0 ${
-              isFavorite ? "text-pink-600" : "" 
+              isFavorite ? "text-pink-600" : ""
             }`}
             title={isFavorite ? "Quitar de favoritos" : "Añadir a favoritos"}
           >
-            
             {isFavorite ? <Heart size={18} fill="currentColor" /> : <Heart size={18} />}
           </button>
         </div>

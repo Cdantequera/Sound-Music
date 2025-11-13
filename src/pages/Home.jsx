@@ -33,40 +33,33 @@ const fetchItemsByIds = async (ids, fetchFunction) => {
   return results.filter((item) => item !== null);
 };
 
-// --- FUNCIÓN mixRecents CORREGIDA Y MEJORADA ---
 const mixRecents = (albums, tracks) => {
-  // Aseguramos que cada ítem tenga una propiedad 'type' para el renderizado condicional
   const albumItems = albums.map((item) => ({ ...item, type: "album" }));
   const trackItems = tracks.map((item) => ({ ...item, type: "track" }));
 
   const mixed = [];
   let trackIndex = 0;
 
-  // Intercalamos 1 Álbum y luego 2 Canciones
   for (let i = 0; i < albumItems.length; i++) {
     // 1. Añadir Álbum
     mixed.push(albumItems[i]);
 
-    // 2. Añadir Canción 1
     if (trackIndex < trackItems.length) {
       mixed.push(trackItems[trackIndex]);
       trackIndex++;
     }
 
-    // 3. Añadir Canción 2
     if (trackIndex < trackItems.length) {
       mixed.push(trackItems[trackIndex]);
       trackIndex++;
     }
   }
 
-  // 4. Añadir cualquier canción restante si quedan más de las que se intercalaron
   while (trackIndex < trackItems.length) {
     mixed.push(trackItems[trackIndex]);
     trackIndex++;
   }
 
-  // Nota: El track con ID vacío ("") se filtra previamente en fetchItemsByIds.
   return mixed.filter(Boolean);
 };
 
@@ -76,7 +69,7 @@ function Home() {
   const [popularTracks, setPopularTracks] = useState([]);
   const [popularAlbums, setPopularAlbums] = useState([]);
   const [genres, setGenres] = useState([]);
-  // ÚNICO ESTADO para la lista mezclada de "Vuelve a escucharlo"
+
   const [customRecents, setCustomRecents] = useState([]);
 
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -87,13 +80,11 @@ function Home() {
       const loadHomeData = async () => {
         setIsLoadingData(true);
         try {
-          // 1. Carga de datos populares y obtención de IDs personalizados en paralelo
           const [tracksData, albumsData, genresData, customAlbumsData, customTracksData] =
             await Promise.all([
               getPopularTracks(),
               getPopularAlbums(),
               getGenres(),
-              // Filtrar IDs vacíos ANTES de llamar a la API
               fetchItemsByIds(
                 CUSTOM_ALBUM_IDS.filter((id) => id),
                 getAlbumById
@@ -104,12 +95,10 @@ function Home() {
               ),
             ]);
 
-          // 2. Establecer estados populares
           setPopularTracks(tracksData);
           setPopularAlbums(albumsData);
           setGenres(genresData);
 
-          // 3. Mezclar y establecer el estado de los recientes personalizados
           setCustomRecents(mixRecents(customAlbumsData, customTracksData));
         } catch (error) {
           console.error("Error al cargar datos del Home:", error);
@@ -122,7 +111,6 @@ function Home() {
     }
   }, [hasSearched]);
 
-  // Función para renderizar la tarjeta correcta
   const renderRecentItem = (item) => {
     if (item.type === "album") {
       return <AlbumCardHome key={`album-${item.id}`} album={item} />;

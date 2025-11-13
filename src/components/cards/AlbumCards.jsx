@@ -12,7 +12,7 @@ function AlbumCard({ album }) {
   return (
     <div
       className="shrink-0 w-40 sm:w-48 cursor-pointer group"
-      onClick={handleNavigateTo404} 
+      onClick={handleNavigateTo404}
       title={`${album.name} - ${album.artistName}`}
     >
       {/* Imagen del Álbum */}

@@ -179,57 +179,59 @@ function AdminUsers() {
               </tr>
             </thead>
             <tbody className="text-white">
-              {users.map((user) => (
-                <tr
-                  key={user.id}
-                  className="border-b border-gray-700/50 hover:bg-gray-700/30 transition-colors"
-                >
-                  <td className="p-4">
-                    <p className="font-medium">{user.userName || user.email.split("@")[0]}</p>
-                    <p className="text-sm text-gray-400">{user.email}</p>
-                  </td>
-                  <td className="p-4">
-                    <span
-                      className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                        user.role === "admin"
-                          ? "bg-purple-900/30 text-purple-300"
-                          : "bg-gray-700/30 text-gray-300"
-                      }`}
-                    >
-                      {user.role}
-                    </span>
-                  </td>
-                  <td className="p-4">
-                    <span
-                      className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                        user.status === "active"
-                          ? "bg-green-900/30 text-green-300"
-                          : "bg-red-900/30 text-red-300"
-                      }`}
-                    >
-                      {user.status === "active" ? "Activo" : "Bloqueado"}
-                    </span>
-                  </td>
-                  <td className="p-4 text-right">
-                    <button
-                      onClick={() => handleToggleBlock(user.id)}
-                      title={user.status === "active" ? "Bloquear" : "Desbloquear"}
-                      className="p-2 rounded-full transition-colors mr-2 text-yellow-500 hover:bg-yellow-900/30"
-                      disabled={user.id === adminUser.id}
-                    >
-                      {user.status === "active" ? <Lock size={18} /> : <Unlock size={18} />}
-                    </button>
-                    <button
-                      onClick={() => handleDeleteUser(user.id)}
-                      title="Eliminar"
-                      className="p-2 rounded-full text-red-500 hover:bg-red-900/30 transition-colors"
-                      disabled={user.id === adminUser.id}
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {users
+                .filter((user) => user.id !== adminUser.id)
+                .map((user) => (
+                  <tr
+                    key={user.id}
+                    className="border-b border-gray-700/50 hover:bg-gray-700/30 transition-colors"
+                  >
+                    <td className="p-4">
+                      <p className="font-medium">{user.userName || user.email.split("@")[0]}</p>
+                      <p className="text-sm text-gray-400">{user.email}</p>
+                    </td>
+                    <td className="p-4">
+                      <span
+                        className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                          user.role === "admin"
+                            ? "bg-purple-900/30 text-purple-300"
+                            : "bg-gray-700/30 text-gray-300"
+                        }`}
+                      >
+                        {user.role}
+                      </span>
+                    </td>
+                    <td className="p-4">
+                      <span
+                        className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                          user.status === "active"
+                            ? "bg-green-900/30 text-green-300"
+                            : "bg-red-900/30 text-red-300"
+                        }`}
+                      >
+                        {user.status === "active" ? "Activo" : "Bloqueado"}
+                      </span>
+                    </td>
+                    <td className="p-4 text-right">
+                      <button
+                        onClick={() => handleToggleBlock(user.id)}
+                        title={user.status === "active" ? "Bloquear" : "Desbloquear"}
+                        className="p-2 rounded-full transition-colors mr-2 text-yellow-500 hover:bg-yellow-900/30"
+                        disabled={user.id === adminUser.id}
+                      >
+                        {user.status === "active" ? <Lock size={18} /> : <Unlock size={18} />}
+                      </button>
+                      <button
+                        onClick={() => handleDeleteUser(user.id)}
+                        title="Eliminar"
+                        className="p-2 rounded-full text-red-500 hover:bg-red-900/30 transition-colors"
+                        disabled={user.id === adminUser.id}
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}

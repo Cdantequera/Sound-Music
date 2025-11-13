@@ -13,7 +13,7 @@ function AlbumCardHomeCarousel({ album }) {
       className="shrink-0  h-auto flex flex-col justify-start rounded-lg 
              cursor-pointer transition-all duration-300 group p-3 
              hover:bg-black/20 
-             w-40"
+             w-48"
       onClick={handleNavigateToList}
       title={`${album.name} - ${album.artistName}`}
     >

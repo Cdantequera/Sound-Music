@@ -3,7 +3,6 @@ import { getFavorites, toggleFavorite, isFavorite } from "../utils/favoritos";
 import { useAuth } from "../hook/useAuth";
 import { FavoritesContext } from "../hook/useFavorites";
 
-
 export const FavoritesProvider = ({ children }) => {
   const { user } = useAuth();
   const userId = user?.id || user?.email || "guest";
