@@ -1,5 +1,5 @@
 const DEEZER_API = "https://api.deezer.com";
-const CORS_PROXY = "https://api.codetabs.com/v1/proxy?quest=";
+const CORS_PROXY = "https://corsproxy.io/?";
 
 const _transformTrackData = (track) => {
   if (!track) {
