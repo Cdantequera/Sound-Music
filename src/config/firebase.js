@@ -19,7 +19,7 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const analytics = getAnalytics(app);
 
-//  Creamos las constantes para la base de datos y el storage
+//  Creamos las constantes para la base de datos
 const db = getFirestore(app);
 const storage = getStorage(app);
 
