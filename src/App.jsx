@@ -48,7 +48,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 text-white overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-purple-900 via-blue-900 to-purple-500 text-white overflow-hidden">
       <ModalProvider>
         {/* --- 3. Envuelve la app con el Provider --- */}
         <PlaylistProvider>
