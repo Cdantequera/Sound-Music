@@ -2,9 +2,21 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  
+  // ✅ ESTO ARREGLA EL ERROR EN LOCAL (npm run dev)
+  server: {
+    proxy: {
+      "/api/deezer": {
+        target: "https://api.deezer.com",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/deezer/, ""),
+      },
+    },
+  },
+
   build: {
     // Aumentar el límite de advertencia a 1000 kB
     chunkSizeWarningLimit: 1000,
@@ -50,13 +62,6 @@ export default defineConfig({
         },
       },
     },
-    // Optimizaciones adicionales
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remover console.log en producción
-        drop_debugger: true,
-      },
-    },
+    
   },
 });
